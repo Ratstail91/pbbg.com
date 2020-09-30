@@ -15,7 +15,9 @@ The API for Persistent Browser-Based Games.
 1. [Fork](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo) this repository
 2. Clone and `cd` into your new fork.
 3. `composer install`
-4. Adjust `Homestead.yaml`. Specifically:
+4. Copy `.env.example` into a new file called `.env`. You may need to ask for additional variable values from one of the project contributors.
+5. Copy `Homestead.yaml.example` into a new file called `Homestead.yaml`.
+6. Adjust `Homestead.yaml`. Specifically:
 
     * Adjust ssh key locations.
       ```
@@ -47,10 +49,16 @@ The API for Persistent Browser-Based Games.
 More info on Homestead configuration in the [official documentation](https://laravel.com/docs/8.x/homestead#first-steps).
 
 ### Commands
+There are commands to manage your development environment and commands specific to the code project.
+#### VM management
 * `vagrant up` build the development environment in a vagrant box (laravel/homestead)
 * `vagrant halt` stop the vagrant box
 * `vagrant ssh` ssh into the running vagrant box (will use your ssh keys specified in Homestead.yaml)
 * `vagrant reload --provision` update the vagrant box (specifically Nginx) after making a change in Homestead.yaml
+#### Project management
+* `composer install` install all dependencies
+* `composer lint` run PHPlint
+* `composer test` run PHPunit
 
 More info on Vagrant in the [official documentation](https://www.vagrantup.com/docs/installation).
 
@@ -71,6 +79,8 @@ More info on Vagrant in the [official documentation](https://www.vagrantup.com/d
 ## Licenses
 Content is released under [GNU GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
+<hr>
+
 ### Common Errors in first time setup
 You must have Composer installed on the host machine. As Homestead is a Composer dependency, you need to have Homestead
 installed before you can use it. If you tried to run `vagrant up` and get a similar error message:
@@ -88,3 +98,7 @@ then ensure Composer is installed on your host machine then install your depende
 composer install
 ```
 With the Homestead package installed, you can now run `vagrant up`.
+
+### Phpstorm setup
+It's helpful to be able to see, troublehshoot, and quickly re-run tests within Phpstorm.
+* Preference > Languages and Tools > PHP > set CLI Interpreter to `Remote PHP 7.4` (using the Vagrant environments)
