@@ -1,3 +1,5 @@
+[![Actions Status](https://github.com/foohonpie/api.pbbg.com/workflows/main/badge.svg)](https://github.com/foohonpie/api.pbbg.com/actions)
+
 # api.pbbg.com
 The API for Persistent Browser-Based Games.
 
