@@ -57,15 +57,15 @@ There are commands to manage your development environment and commands specific 
 * `vagrant reload --provision` update the vagrant box (specifically Nginx) after making a change in Homestead.yaml
 #### Project management
 * `composer install` install all dependencies
-* `composer lint` run PHPlint
+* `composer lint` run PHPlint, beautifier, and auto-fix related syntax/formatting issues
 * `composer test` run PHPunit
 
 More info on Vagrant in the [official documentation](https://www.vagrantup.com/docs/installation).
 
 ### Contributing and Pull Requests
 1. We *highly* encourage [short, concise git commit messages](https://chris.beams.io/posts/git-commit/).
-2. Ensure any PHPlint (including warnings) and PHPunit tests pass locally before creating your Pull Request.
-3. After Pull Request creation, your branch must pass the PHPlint and PHPunit tests that run automatically.
+2. Ensure any `composer lint` and `composer test` pass locally before creating your Pull Request.
+3. After Pull Request creation, your branch must pass the build's `composer lint` and `composer test` actions that run automatically.
 4. Your Pull Request must be approved by at least one contributor.
 5. After it has been approved you may request one of the contributors to merge it for you.
 
