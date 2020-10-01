@@ -3,7 +3,9 @@
 # api.pbbg.com
 The API for Persistent Browser-Based Games.
 
-## Prerequisites for host machine
+## Recommended dev environment setup for host machine
+If you need a place to begin, environment-wise, you can install the things below. Feel free to use your own environment
+if you already have one in place.
 * PHP, version >= 7.3
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads), version >= 6.1.14
 * [Vagrant](https://www.vagrantup.com/downloads.html), version >= 2.2.4

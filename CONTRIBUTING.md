@@ -8,10 +8,10 @@ Please note we have a code of conduct, please follow it in all your interactions
 ## Pull Request Process
 
 1. We *highly* encourage [short, concise git commit messages](https://chris.beams.io/posts/git-commit/).
-2. Ensure any eslint (including warnings) and cypress tests pass locally before creating your Pull Request.
-3. After Pull Request creation, your branch must pass the eslint and UAT tests that run automatically.
+2. Ensure any `composer lint` and `composer test` pass locally before creating your Pull Request.
+3. After Pull Request creation, your branch must pass the build's `composer lint` and `composer test` actions that run automatically.
 4. Your Pull Request must be approved by at least one contributor.
-5. After the tests pass, and it has been approved, you may request one of the contributors to merge it for you.
+5. After it has been approved you may request one of the contributors to merge it for you.
 
 ## Code of Conduct
 
