@@ -1,6 +1,8 @@
 <?php
 
-/** @var \Laravel\Lumen\Routing\Router $router */
+/**
+ * @var \Laravel\Lumen\Routing\Router $router
+ */
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +15,12 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+$router->get(
+    '/', function () use ($router) {
+        return $router->app->version();
+    }
+);
 
-# users
+// users
 $router->get('/users', [ 'uses' => 'UserController@index' ]);
 $router->get('/users/{user_id}', [ 'uses' => 'UserController@show' ]);
