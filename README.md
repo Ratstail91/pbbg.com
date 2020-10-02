@@ -1,61 +1,106 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+[![Actions Status](https://github.com/foohonpie/api.pbbg.com/workflows/main/badge.svg)](https://github.com/foohonpie/api.pbbg.com/actions)
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+# api.pbbg.com
+The API for Persistent Browser-Based Games.
 
-## About Laravel
+## Recommended dev environment setup for host machine
+If you need a place to begin, environment-wise, you can install the things below. Feel free to use your own environment
+if you already have one in place.
+* PHP, version >= 7.3
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads), version >= 6.1.14
+* [Vagrant](https://www.vagrantup.com/downloads.html), version >= 2.2.4
+* [Composer package manager](https://getcomposer.org/download/)
+> Other VM providers than VirtualBox (Parallels, Hyper-V, etc..) may work fine, but these instructions
+> are only tested on VirtualBox
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Create development environment with Vagrant
+1. [Fork](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo) this repository
+2. Clone and `cd` into your new fork.
+3. `composer install`
+4. Copy `.env.example` into a new file called `.env`. You may need to ask for additional variable values from one of the project contributors.
+5. Copy `Homestead.yaml.example` into a new file called `Homestead.yaml`.
+6. Adjust `Homestead.yaml`. Specifically:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+    * Adjust ssh key locations.
+      ```
+      authorize: ~/.ssh/id_rsa.pub
+         keys:
+             - ~/.ssh/id_rsa
+      ```
+      This should be the relative paths to where you have ssh keys already made on your machine. If they don't exist
+      here then create them somewhere and use that path. Also note this is a mac-style path, whereas windows would
+      require an absolute path.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+    * Adjust project path to where you cloned your api.pbbg.com fork.
+      ```
+      folders:
+          -
+              map: ~/Projects/api.pbbg.com
+              to: /home/vagrant/code
+      ```
+      This should be the relative path to your cloned project on your host machine. Change the `map` path as necessary.
 
-## Learning Laravel
+    * **Add changes to `/etc/hosts` file**. You'll notice the `sites` block is mapped to `local.api.pbbg.com`.
+      You need to add this to your `/etc/hosts` file on your host machine. On a mac machine, you would do something
+      like `sudo nano /etc/hosts` and then add this:
+      ```
+      192.168.10.10   local.api.pbbg.com
+      ```
+      Once you start Vagrant, this will allow you to hit **http://local.api.pbbg.com** in your browser.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+More info on Homestead configuration in the [official documentation](https://laravel.com/docs/8.x/homestead#first-steps).
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Commands
+There are commands to manage your development environment and commands specific to the code project.
+#### VM management
+* `vagrant up` build the development environment in a vagrant box (laravel/homestead)
+* `vagrant halt` stop the vagrant box
+* `vagrant ssh` ssh into the running vagrant box (will use your ssh keys specified in Homestead.yaml)
+* `vagrant reload --provision` update the vagrant box (specifically Nginx) after making a change in Homestead.yaml
+#### Project management
+* `composer install` install all dependencies
+* `composer lint` run PHPlint, beautifier, and auto-fix related syntax/formatting issues
+* `composer test` run PHPunit
 
-## Laravel Sponsors
+More info on Vagrant in the [official documentation](https://www.vagrantup.com/docs/installation).
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Contributing and Pull Requests
+1. We *highly* encourage [short, concise git commit messages](https://chris.beams.io/posts/git-commit/).
+2. Ensure any `composer lint` and `composer test` pass locally before creating your Pull Request.
+3. After Pull Request creation, your branch must pass the build's `composer lint` and `composer test` actions that run automatically.
+4. Your Pull Request must be approved by at least one contributor.
+5. After it has been approved you may request one of the contributors to merge it for you.
 
-### Premium Partners
+> Longer Contributing document on how to offer feedback, our standards, responsibilities, code of conduct, and
+>enforcement can be found in [contributing guidelines](/CONTRIBUTING.md)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+### Test Environment
+ After developing locally and going through the normal Pull Request process to get your changes added, the updated code
+ is pushed to the test environment at [https://dev.api.pbbg.com/](https://dev.api.pbbg.com/).
 
-## Contributing
+## Licenses
+Content is released under [GNU GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+<hr>
 
-## Code of Conduct
+### Common Errors in first time setup
+You must have Composer installed on the host machine. As Homestead is a Composer dependency, you need to have Homestead
+installed before you can use it. If you tried to run `vagrant up` and get a similar error message:
+```
+There was an error loading a Vagrantfile. The file being loaded
+and the error message are shown below. This is usually caused by
+a syntax error.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Path: /path/to/project/root/Vagrantfile
+Line number: 12
+Message: LoadError: cannot load such file -- /path/to/project/root/vendor/laravel/homestead/scripts/homestead.rb
+```
+then ensure Composer is installed on your host machine then install your dependencies:
+```
+composer install
+```
+With the Homestead package installed, you can now run `vagrant up`.
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Phpstorm setup
+It's helpful to be able to see, troublehshoot, and quickly re-run tests within Phpstorm.
+* Preference > Languages and Tools > PHP > set CLI Interpreter to `Remote PHP 7.4` (using the Vagrant environments)

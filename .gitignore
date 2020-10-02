@@ -6,7 +6,9 @@
 .env
 .env.backup
 .phpunit.result.cache
+.phplint-cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+/.vagrant
