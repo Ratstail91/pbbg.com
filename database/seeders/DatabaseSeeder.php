@@ -3,12 +3,11 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Database\Seeders\UsersTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Seed the application's database.
      *
      * @return void
      */
@@ -16,8 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(
             [
-             UsersTableSeeder::class
-             ]
+            UserSeeder::class
+            ]
         );
     }
 }
