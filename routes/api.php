@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GameController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,7 @@ Route::middleware('auth:api')->get(
 // users
 Route::get('/users', [UserController::class, 'index']);
 Route::get('/users/{user_id}', [UserController::class, 'show']);
+
+// games
+Route::get('/games', [GameController::class, 'index']);
+Route::get('/games/{game_id}', [GameController::class, 'show']);
