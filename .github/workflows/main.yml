@@ -10,5 +10,8 @@ jobs:
         run: composer install
       - name: Run PHPlint
         run: composer lint
+      - name: Set test APP_KEY
+        run: |
+          php artisan key:generate
       - name: Run PHPunit
         run: composer test
