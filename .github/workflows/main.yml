@@ -10,8 +10,9 @@ jobs:
         run: composer install
       - name: Run PHPlint
         run: composer lint
-      - name: Set test APP_KEY
+      - name: Boot Laravel app
         run: |
+          cp .env.example .env
           php artisan key:generate
       - name: Run PHPunit
         run: composer test
