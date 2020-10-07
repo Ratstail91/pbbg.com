@@ -3,16 +3,35 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      mysql-service:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          MYSQL_DATABASE: pbbgci
+        ports:
+          - 33306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Install packages
-        run: composer install
+      - uses: actions/checkout@v2
+      - name: App Setup
+        run: |
+          cp .env.ci .env
+          composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+          php artisan key:generate
       - name: Run PHPlint
         run: composer lint
-      - name: Boot Laravel app
-        run: |
-          cp .env.example .env
-          php artisan key:generate
       - name: Run PHPunit
-        run: composer test
+        env:
+          DB_CONNECTION: mysql
+          DB_DATABASE: pbbgci
+          DB_PORT: 33306
+          DB_USER: root
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          php artisan migrate
+#          composer test
