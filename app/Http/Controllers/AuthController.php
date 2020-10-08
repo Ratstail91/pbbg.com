@@ -9,7 +9,11 @@ use App\Models\User;
 class AuthController extends Controller
 {
     /**
-     * Registration Req
+     * Create a user and API token after a valid registration.
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function register(Request $request)
     {
@@ -35,7 +39,10 @@ class AuthController extends Controller
     }
 
     /**
-     * Login Req
+     * Attempt to log the user into the application.
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function login(Request $request)
     {
