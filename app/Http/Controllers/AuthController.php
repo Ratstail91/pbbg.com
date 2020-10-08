@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 
 use App\Models\User;
 
@@ -11,20 +12,11 @@ class AuthController extends Controller
     /**
      * Create a user and API token after a valid registration.
      *
-     * @param  Request $request
+     * @param  RegisterRequest $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Validation\ValidationException
      */
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $this->validate(
-            $request, [
-            'name' => 'required|min:3',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8',
-            ]
-        );
-
         $user = User::create(
             [
             'name' => $request->name,
@@ -41,23 +33,17 @@ class AuthController extends Controller
     /**
      * Attempt to log the user into the application.
      *
-     * @param  Request $request
+     * @param  LoginRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-
-        $credentials = [
-            'email' => $request->email,
-            'password' => $request->password
-        ];
-
-        if(auth('web')->attempt($credentials) ) {
+        if (auth('web')->attempt($request->validated())) {
             $user = auth('web')->user();
             $success['token'] = $user->createToken('Token')->accessToken;
             return response()->json(['success' => $success], 200);
         } else {
-            return response()->json(['error'=>'Unauthorized'], 401);
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 }
