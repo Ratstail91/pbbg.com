@@ -19,7 +19,7 @@ use App\Http\Controllers\AuthController;
 
 Route::get(
     '/', function () {
-        return 'https://app.swaggerhub.com/apis-docs/pbbg/api.pbbg.com/0.1.0';
+        return 'https://app.swaggerhub.com/apis-docs/pbbg/api.pbbg.com';
     }
 );
 
