@@ -67,7 +67,7 @@
         ],
         "lint": [
             "./vendor/bin/phplint",
-            "./vendor/bin/phpcbf --extensions=php --report=summary --standard=PSR12 ./routes ./public ./database ./bootstrap ./app"
+            "./vendor/bin/phpcbf --extensions=php --report=summary --standard=PSR12 ./routes ./database ./bootstrap ./app"
         ]
     }
 }
