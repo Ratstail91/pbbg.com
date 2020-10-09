@@ -17,11 +17,9 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get(
-    '/', function () {
-        return 'https://app.swaggerhub.com/apis-docs/pbbg/api.pbbg.com';
-    }
-);
+Route::get('/', function () {
+    return 'https://app.swaggerhub.com/apis-docs/pbbg/api.pbbg.com';
+});
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
