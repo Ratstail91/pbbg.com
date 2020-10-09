@@ -17,20 +17,16 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get(
-    '/', function () {
-        return 'https://app.swaggerhub.com/apis-docs/pbbg/api.pbbg.com';
-    }
-);
+Route::get('/', function () {
+    return 'https://app.swaggerhub.com/apis-docs/pbbg/api.pbbg.com';
+});
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
-Route::middleware('auth:api')->get(
-    '/user', function (Request $request) {
-        return $request->user();
-    }
-);
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 // users
 Route::get('/users', [UserController::class, 'index']);
