@@ -51,8 +51,6 @@ class PostLoginTest extends TestCase
      */
     public function testPostLogInWithEmptyCredentials()
     {
-        $uuid = uniqid();
-        $this->registerUser($uuid);
         $response = $this->withHeaders([
             'Accept' => 'application/json',
         ])->post('/login');
