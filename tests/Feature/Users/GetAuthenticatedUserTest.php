@@ -20,7 +20,7 @@ class GetAuthenticatedUserTest extends TestCase
             'Accept' => 'application/json',
             'Authorization' => "Bearer $token"
         ])->get('/user');
-        $response->assertStatus(200);
+        $this->assertResponse($response, 200);
     }
 
     /**
@@ -34,7 +34,7 @@ class GetAuthenticatedUserTest extends TestCase
             'Accept' => 'application/json',
             'Authorization' => "Bearer InvalidToken"
         ])->get('/user');
-        $response->assertStatus(401);
+        $this->assertResponse($response, 401);
     }
 
 }

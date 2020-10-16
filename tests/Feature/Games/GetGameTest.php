@@ -16,6 +16,6 @@ class GetGameTest extends TestCase
     public function testGetGame()
     {
         $response = $this->get('/games/1');
-        $response->assertStatus(200);
+        $this->assertResponse($response, 200);
     }
 }

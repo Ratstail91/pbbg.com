@@ -22,9 +22,8 @@ class AuthController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
-        $token = $user->createToken('Token')->accessToken;
-
-        return response()->json(['token' => $token], 200);
+        $data['token'] = $user->createToken('Token')->accessToken;
+        return response()->json(['data' => $data], 200);
     }
 
     /**
@@ -37,10 +36,10 @@ class AuthController extends Controller
     {
         if (auth('web')->attempt($request->validated())) {
             $user = auth('web')->user();
-            $success['token'] = $user->createToken('Token')->accessToken;
-            return response()->json(['success' => $success], 200);
+            $data['token'] = $user->createToken('Token')->accessToken;
+            return response()->json(['data' => $data], 200);
         } else {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['message' => 'Unauthorized'], 401);
         }
     }
 }

@@ -16,6 +16,6 @@ class GetUserTest extends TestCase
     public function testGetUser()
     {
         $response = $this->get('/users/1');
-        $response->assertStatus(200);
+        $this->assertResponse($response, 200);
     }
 }

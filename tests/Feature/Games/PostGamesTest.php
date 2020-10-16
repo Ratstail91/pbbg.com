@@ -57,7 +57,7 @@ class PostGamesTest extends TestCase
             'promoted' => $this->faker->boolean($chanceOfGettingTrue = 50),
         ]);
 
-        $response->assertStatus(200);
+        $this->assertResponse($response, 200);
     }
 
     /**
@@ -82,7 +82,7 @@ class PostGamesTest extends TestCase
             'promoted' => $input_game->promoted,
         ]);
 
-        $response->assertStatus(422);
+        $this->assertResponse($response, 422);
     }
 
     /**
@@ -96,6 +96,6 @@ class PostGamesTest extends TestCase
             'Accept' => 'application/json',
         ])->post('/games');
 
-        $response->assertStatus(422);
+        $this->assertResponse($response, 422);
     }
 }
