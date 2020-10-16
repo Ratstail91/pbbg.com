@@ -16,6 +16,6 @@ class GetGamesTest extends TestCase
     public function testGetGames()
     {
         $response = $this->withHeaders(['Accept' => 'application/json'])->get('/games');
-        $response->assertStatus(200);
+        $this->assertResponse($response, 200);
     }
 }

@@ -23,7 +23,7 @@ class PostLoginTest extends TestCase
             'email' => 'foo_' . $uuid . '@bar.baz',
             'password' => 'foobarbaz',
         ]);
-        $response->assertStatus(200);
+        $this->assertResponse($response, 200);
     }
 
     /**
@@ -41,7 +41,7 @@ class PostLoginTest extends TestCase
             'email' => 'foo_' . $uuid . '@bar.baz',
             'password' => 'incorrectpassword'
         ]);
-        $response->assertStatus(401);
+        $this->assertResponse($response, 401);
     }
 
     /**
@@ -54,6 +54,6 @@ class PostLoginTest extends TestCase
         $response = $this->withHeaders([
             'Accept' => 'application/json',
         ])->post('/login');
-        $response->assertStatus(422);
+        $this->assertResponse($response, 422);
     }
 }

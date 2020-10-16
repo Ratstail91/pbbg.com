@@ -23,7 +23,7 @@ class PostRegisterTest extends TestCase
             'email' => 'foo_' . $random_uuid . '@bar.baz',
             'password' => 'foobarbaz'
         ]);
-        $response->assertStatus(200);
+        $this->assertResponse($response, 200);
     }
 
     /**
@@ -42,7 +42,7 @@ class PostRegisterTest extends TestCase
             'password' => 'foobar'
         ]);
 
-        $response->assertStatus(422);
+        $this->assertResponse($response, 422);
     }
 
     /**
@@ -56,6 +56,6 @@ class PostRegisterTest extends TestCase
             'Accept' => 'application/json',
         ])->post('/register');
 
-        $response->assertStatus(422);
+        $this->assertResponse($response, 422);
     }
 }
