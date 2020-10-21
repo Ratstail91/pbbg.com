@@ -62,4 +62,15 @@ class UserController extends Controller
     {
         //
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     */
+    public function destroyAll()
+    {
+        # todo: this should be reserved for admins
+        User::truncate();
+        return UserResource::collection(User::paginate());
+    }
 }
