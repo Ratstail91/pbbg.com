@@ -17,7 +17,6 @@ class DeleteUsersTest extends TestCase
     public function testDeleteUsers()
     {
         $this->registerUser();
-        # user count should be greater than 0
 
         $count = User::count();
         $this->assertGreaterThan(0,$count);
