@@ -3,12 +3,12 @@ openapi: "3.0.0"
 info:
   title: "The PBBG API"
   description: "The API for Persistent Browser-Based Games."
-  version: "0.1.3"
+  version: "0.1.4"
 externalDocs:
   description: "Find out more about this project"
   url: "https://github.com/pbbg"
 servers:
-  - url: "https://virtserver.swaggerhub.com/pbbg/api.pbbg.com/0.1.3"
+  - url: "https://virtserver.swaggerhub.com/pbbg/api.pbbg.com/0.1.4"
     description: "SwaggerHub API Auto Mocking"
   - url: "https://dev-api.pbbg.com"
     description: "Development API"
@@ -157,6 +157,75 @@ paths:
                     type: "array"
                     items:
                       $ref: "#/components/schemas/User"
+                  links:
+                    type: "object"
+                    properties:
+                      first:
+                        type: "string"
+                        example: "https://dev-api.pbbg.com/users?page=1"
+                      last:
+                        type: "string"
+                        example: "https://dev-api.pbbg.com/users?page=1"
+                      prev:
+                        type: "string"
+                      next:
+                        type: "string"
+                  meta:
+                    type: "object"
+                    properties:
+                      current_page:
+                        type: "number"
+                        example: 1
+                      from:
+                        type: "number"
+                        example: 1
+                      last_page:
+                        type: "number"
+                        example: 1
+                      links:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            url:
+                              type: "string"
+                            label:
+                              type: "string"
+                              example: "Previous"
+                            active:
+                              type: "boolean"
+                              example: false
+                      path:
+                        type: "string"
+                        example: "https://dev-api.pbbg.com/users"
+                      per_page:
+                        type: "number"
+                        example: 15
+                      to:
+                        type: "number"
+                        example: 1
+                      total:
+                        type: "number"
+                        example: 1
+    delete:
+      tags:
+        - "Users"
+      summary: "Delete users"
+      description: "This deletes all users."
+      operationId: "deleteUsers"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  data:
+                    type: "array"
+                    items:
+                      $ref: "#/components/schemas/User"
+                    example: []
                   links:
                     type: "object"
                     properties:
