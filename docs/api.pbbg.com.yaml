@@ -613,15 +613,18 @@ components:
     Feed:
       type: "object"
       properties:
-        id:
-          type: "number"
-          example: 1
-        game_id:
-          type: "number"
-          example: 1
-        image_path:
+        url:
           type: "string"
-          example: "/path/to/image.jpg"
+          example: "https://example.com/feed.rss"
+        feed_name:
+          type: "string"
+          example: "Feed Name"
+        feed_source:
+          type: "string"
+          example: "https://example.com"
+        image_url:
+          type: "string"
+          example: "https://example.com/image.jpg"
         title:
           type: "string"
           example: "Feed Title"

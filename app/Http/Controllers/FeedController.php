@@ -36,12 +36,11 @@ class FeedController extends Controller
             foreach ($these_items as $this_item) {
                 array_push($feed_items, [
                     'url' => $this_item->get_permalink(),
-                    'game_name' => $name,
-                    'game_path' => $feed['url'],
+                    'feed_name' => $name,
+                    'feed_source' => $feed['url'],
                     'image_url' => $feed['image_url'],
                     'title' => $this_item->get_title(),
-                    'timestamp' => $this_item->get_gmdate('U'),
-                    'date' => $this_item->get_gmdate('F j Y')
+                    'timestamp' => $this_item->get_gmdate('U')
                 ]);
             }
         }
