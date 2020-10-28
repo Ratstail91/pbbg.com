@@ -19,6 +19,7 @@
         "laravel/scout": "^8.3",
         "laravel/tinker": "^2.0",
         "opis/json-schema": "^1.0",
+        "spatie/laravel-permission": "^3.17",
         "willvincent/feeds": "^2.2"
     },
     "require-dev": {
