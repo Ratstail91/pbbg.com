@@ -276,6 +276,16 @@ paths:
                       total:
                         type: "number"
                         example: 1
+        401:
+          description: "authentication required"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  data:
+                    type: "string"
+                    example: "Unauthenticated."
   /users/{userId}:
     get:
       tags:
