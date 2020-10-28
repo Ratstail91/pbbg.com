@@ -283,7 +283,7 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  data:
+                  message:
                     type: "string"
                     example: "Unauthenticated."
   /users/{userId}:
