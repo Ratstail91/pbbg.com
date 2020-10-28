@@ -3,12 +3,12 @@ openapi: "3.0.0"
 info:
   title: "The PBBG API"
   description: "The API for Persistent Browser-Based Games."
-  version: "0.1.4"
+  version: "0.1.5"
 externalDocs:
   description: "Find out more about this project"
   url: "https://github.com/pbbg"
 servers:
-  - url: "https://virtserver.swaggerhub.com/pbbg/api.pbbg.com/0.1.4"
+  - url: "https://virtserver.swaggerhub.com/pbbg/api.pbbg.com/0.1.5"
     description: "SwaggerHub API Auto Mocking"
   - url: "https://dev-api.pbbg.com"
     description: "Development API"
@@ -477,6 +477,74 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/Game"
+  /feeds:
+    get:
+      tags:
+        - "Feeds"
+      summary: "Get feeds"
+      operationId: "getFeeds"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  data:
+                    type: "array"
+                    items:
+                      $ref: "#/components/schemas/Feed"
+                  links:
+                    type: "object"
+                    properties:
+                      first:
+                        type: "string"
+                        example: "https://dev-api.pbbg.com/feeds?page=1"
+                      last:
+                        type: "string"
+                        example: "https://dev-api.pbbg.com/feeds?page=1"
+                      prev:
+                        type: "string"
+                      next:
+                        type: "string"
+                  meta:
+                    type: "object"
+                    properties:
+                      current_page:
+                        type: "number"
+                        example: 1
+                      from:
+                        type: "number"
+                        example: 1
+                      last_page:
+                        type: "number"
+                        example: 1
+                      links:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            url:
+                              type: "string"
+                            label:
+                              type: "string"
+                              example: "Previous"
+                            active:
+                              type: "boolean"
+                              example: false
+                      path:
+                        type: "string"
+                        example: "https://dev-api.pbbg.com/feeds"
+                      per_page:
+                        type: "number"
+                        example: 15
+                      to:
+                        type: "number"
+                        example: 1
+                      total:
+                        type: "number"
+                        example: 1
 components:
   schemas:
     User:
@@ -542,6 +610,27 @@ components:
         updated_at:
           type: "string"
           example: "2020-10-07T16:46:15.000000Z"
+    Feed:
+      type: "object"
+      properties:
+        url:
+          type: "string"
+          example: "https://example.com/feed.rss"
+        feed_name:
+          type: "string"
+          example: "Feed Name"
+        feed_source:
+          type: "string"
+          example: "https://example.com"
+        image_url:
+          type: "string"
+          example: "https://example.com/image.jpg"
+        title:
+          type: "string"
+          example: "Feed Title"
+        timestamp:
+          type: "string"
+          example: "1601519400"
     AuthenticatedUser:
       type: "object"
       properties:

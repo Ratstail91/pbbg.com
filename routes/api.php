@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FeedController;
 use App\Http\Resources\AuthenticatedUser as AuthenticatedUserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -38,3 +39,6 @@ Route::get('/users/{user_id}', [UserController::class, 'show']);
 Route::get('/games', [GameController::class, 'index']);
 Route::get('/games/{game_id}', [GameController::class, 'show']);
 Route::post('/games', [GameController::class, 'store']);
+
+// feeds
+Route::get('/feeds', [FeedController::class, 'index']);
