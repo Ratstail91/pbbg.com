@@ -7,7 +7,7 @@ use Tests\TestCase;
 class GetFeedsTest extends TestCase
 {
     /**
-     * Get list of games
+     * Get list of feeds
      *
      * @return void
      */

@@ -9,7 +9,14 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    protected function registerUser($uuid = null) {
+    /**
+     * Register a new user and return its corresponding API token.
+     *
+     * @param null $uuid
+     * @return mixed
+     */
+    protected function registerUser($uuid = null)
+    {
         $uuid = $uuid ?: uniqid();
         $response = $this->withHeaders([
             'Accept' => 'application/json',
@@ -24,7 +31,14 @@ abstract class TestCase extends BaseTestCase
         return $token;
     }
 
-    public function assertSchema($data, $schema_file) {
+    /**
+     * Assert that the schema of the response matches the defined schema.
+     *
+     * @param $data
+     * @param $schema_file
+     */
+    public function assertSchema($data, $schema_file)
+    {
         $schema = Schema::fromJsonString(file_get_contents(__DIR__ . "/../schemas/$schema_file"));
         $validator = new Validator();
         $result = $validator->schemaValidation($data, $schema);
@@ -40,7 +54,14 @@ abstract class TestCase extends BaseTestCase
         $this->assertEquals(1, $result_is_valid);
     }
 
-    public function assertResponse($response, $code) {
+    /**
+     * Assert that the response has the correct code and schema expected.
+     *
+     * @param $response
+     * @param $code
+     */
+    public function assertResponse($response, $code)
+    {
         $response->assertStatus($code);
         $content = json_decode($response->getContent());
         $this->assertSchema($content, "responses/$code.json");

@@ -34,6 +34,7 @@ class AuthorizationTest extends TestCase
     /**
      * Tests that the user has a role called "test_role".
      *
+     * @return void
      */
     public function testUserHasRole()
     {
