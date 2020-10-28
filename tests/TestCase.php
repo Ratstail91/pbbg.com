@@ -3,9 +3,7 @@
 namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Opis\JsonSchema\{
-    Validator, ValidationResult, ValidationError, Schema
-};
+use Opis\JsonSchema\{Validator, Schema};
 
 abstract class TestCase extends BaseTestCase
 {
