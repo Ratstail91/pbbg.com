@@ -31,7 +31,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // users
 Route::get('/users', [UserController::class, 'index']);
-Route::delete('/users', [UserController::class, 'destroyAll'])->middleware('auth:api');
+Route::delete('/users', [UserController::class, 'destroyAll'])->middleware(['auth:api', 'role:admin']);
 Route::get('/users/{user_id}', [UserController::class, 'show']);
 
 // games

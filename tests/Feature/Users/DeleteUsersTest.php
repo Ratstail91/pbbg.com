@@ -28,6 +28,7 @@ class DeleteUsersTest extends TestCase
         Role::truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
 
+        // create role
         Role::create(['name' => 'admin']);
     }
 
@@ -49,6 +50,9 @@ class DeleteUsersTest extends TestCase
             'password' => encrypt('password'),
         ]);
 
+        $role = Role::where('name', 'admin')->first();
+
+        $user->assignRole($role);
         $this->actingAs($user);
 
         $response = $this->withHeaders(['Accept' => 'application/json'])->delete('/users');
@@ -57,6 +61,31 @@ class DeleteUsersTest extends TestCase
 
         $count = User::count();
         $this->assertEquals(0, $count);
+    }
+
+    /**
+     * Tests that the user without role "admin" cannot delete all users.
+     *
+     * @return void
+     */
+    public function testDeleteUsersWithoutAuthorization()
+    {
+        $this->registerUser();
+
+        $count = User::count();
+        $this->assertGreaterThan(0, $count);
+
+        $user = User::create([
+            'name' => 'user_'.uniqid(),
+            'email' => 'test_'.uniqid().'@test.test',
+            'password' => encrypt('password'),
+        ]);
+
+        $this->actingAs($user);
+
+        $response = $this->withHeaders(['Accept' => 'application/json'])->delete('/users');
+
+        $this->assertResponse($response, 403);
     }
 
     /**

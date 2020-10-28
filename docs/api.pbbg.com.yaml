@@ -286,6 +286,16 @@ paths:
                   message:
                     type: "string"
                     example: "Unauthenticated."
+        403:
+          description: "authorization required"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "User does not have the right roles."
   /users/{userId}:
     get:
       tags:
