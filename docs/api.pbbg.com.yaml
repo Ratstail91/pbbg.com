@@ -3,12 +3,12 @@ openapi: "3.0.0"
 info:
   title: "The PBBG API"
   description: "The API for Persistent Browser-Based Games."
-  version: "0.1.5"
+  version: "0.1.6"
 externalDocs:
   description: "Find out more about this project"
   url: "https://github.com/pbbg"
 servers:
-  - url: "https://virtserver.swaggerhub.com/pbbg/api.pbbg.com/0.1.5"
+  - url: "https://virtserver.swaggerhub.com/pbbg/api.pbbg.com/0.1.6"
     description: "SwaggerHub API Auto Mocking"
   - url: "https://dev-api.pbbg.com"
     description: "Development API"
