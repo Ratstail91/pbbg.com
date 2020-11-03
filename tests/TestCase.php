@@ -10,28 +10,6 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication;
 
     /**
-     * Register a new user and return its corresponding API token.
-     *
-     * @param null $uuid
-     * @return mixed
-     */
-    protected function registerUser($uuid = null)
-    {
-        $uuid = $uuid ?: uniqid();
-        $response = $this->withHeaders([
-            'Accept' => 'application/json',
-        ])->post('/register', [
-            'name' => 'User_' . $uuid,
-            'email' => 'foo_' . $uuid . '@bar.baz',
-            'password' => 'foobarbaz'
-        ]);
-        $response_json = json_decode($response->content());
-        $token = $response_json->data->token;
-        $this->assertNotEquals('', $token); # improve this to check that token is valid JWT
-        return $token;
-    }
-
-    /**
      * Assert that the schema of the response matches the defined schema.
      *
      * @param $data

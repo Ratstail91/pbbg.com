@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Users;
 
+use App\Models\User;
+use Laravel\Passport\Passport;
 use Tests\TestCase;
 
 class GetAuthenticatedUserTest extends TestCase
@@ -13,10 +15,9 @@ class GetAuthenticatedUserTest extends TestCase
      */
     public function testAnAuthenticatedUserCanAccessAuthenticatedUserData()
     {
-        $token = $this->registerUser();
+        Passport::actingAs(User::factory()->create());
         $response = $this->withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => "Bearer $token"
         ])->get('/user');
         $this->assertResponse($response, 200);
     }

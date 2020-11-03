@@ -4,6 +4,7 @@ namespace Tests\Feature\Users;
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Laravel\Passport\Passport;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
@@ -37,21 +38,16 @@ class DeleteUsersTest extends TestCase
      */
     public function testDeleteUsers()
     {
-        $this->registerUser();
+        $user = User::factory()->create();
 
         $count = User::count();
         $this->assertGreaterThan(0, $count);
 
-        $user = User::create([
-            'name' => 'user_'.uniqid(),
-            'email' => 'test_'.uniqid().'@test.test',
-            'password' => encrypt('password'),
-        ]);
-
         $role = Role::where('name', 'admin')->first();
 
         $user->assignRole($role);
-        $this->actingAs($user);
+
+        Passport::actingAs($user);
 
         $response = $this->withHeaders(['Accept' => 'application/json'])->delete('/users');
 
@@ -68,18 +64,10 @@ class DeleteUsersTest extends TestCase
      */
     public function testDeleteUsersWithoutAuthorization()
     {
-        $this->registerUser();
+        Passport::actingAs(User::factory()->create());
 
         $count = User::count();
         $this->assertGreaterThan(0, $count);
-
-        $user = User::create([
-            'name' => 'user_'.uniqid(),
-            'email' => 'test_'.uniqid().'@test.test',
-            'password' => encrypt('password'),
-        ]);
-
-        $this->actingAs($user);
 
         $response = $this->withHeaders(['Accept' => 'application/json'])->delete('/users');
 
@@ -93,8 +81,6 @@ class DeleteUsersTest extends TestCase
      */
     public function testDeleteUsersWithoutAuthentication()
     {
-        $this->registerUser();
-
         $count = User::count();
         $this->assertGreaterThan(0, $count);
 

@@ -3,7 +3,9 @@
 namespace Tests\Feature\Games;
 
 use App\Models\Game;
+use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
+use Laravel\Passport\Passport;
 use Tests\TestCase;
 
 class PostGamesTest extends TestCase
@@ -28,10 +30,9 @@ class PostGamesTest extends TestCase
      */
     public function testPostGamesWithAuthenticatedUser()
     {
-        $token = $this->registerUser();
+        Passport::actingAs(User::factory()->create());
         $post_response = $this->withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => "Bearer $token"
         ])->post('/games');
         $this->assertNotEquals(403, $post_response->getStatusCode());
     }

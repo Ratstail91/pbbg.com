@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Users;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class PostLoginTest extends TestCase
@@ -13,13 +15,14 @@ class PostLoginTest extends TestCase
      */
     public function testPostLogInWithValidCredentials()
     {
-        $uuid = uniqid();
-        $this->registerUser($uuid);
+        $user = User::factory()->create([
+            'password' => Hash::make($password = 'password'),
+        ]);
         $response = $this->withHeaders([
             'Accept' => 'application/json',
         ])->post('/login', [
-            'email' => 'foo_' . $uuid . '@bar.baz',
-            'password' => 'foobarbaz',
+            'email' => $user->email,
+            'password' => $password,
         ]);
         $this->assertResponse($response, 200);
     }
@@ -31,12 +34,10 @@ class PostLoginTest extends TestCase
      */
     public function testPostLogInWithInvalidCredentials()
     {
-        $uuid = uniqid();
-        $this->registerUser($uuid);
         $response = $this->withHeaders([
             'Accept' => 'application/json',
         ])->post('/login', [
-            'email' => 'foo_' . $uuid . '@bar.baz',
+            'email' => 'foo_' . uniqid() . '@bar.baz',
             'password' => 'incorrectpassword'
         ]);
         $this->assertResponse($response, 401);

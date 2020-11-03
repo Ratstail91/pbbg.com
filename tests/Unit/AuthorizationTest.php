@@ -38,11 +38,7 @@ class AuthorizationTest extends TestCase
      */
     public function testUserHasRole()
     {
-        $user = User::create([
-            'name' => 'test_'.uniqid(),
-            'email' => 'test_'.uniqid().'@test.test',
-            'password' => bcrypt('password'),
-        ]);
+        $user = User::factory()->create();
 
         $role = Role::create(['name' => 'test_role']);
 
