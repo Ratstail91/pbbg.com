@@ -13,9 +13,7 @@ class PostRegisterTest extends TestCase
      */
     public function testPostRegisterWithCorrectInput()
     {
-        $response = $this->withHeaders([
-            'Accept' => 'application/json',
-        ])->post('/register', [
+        $response = $this->post('/register', [
             'name' => 'User_' . uniqid(),
             'email' => 'foo_' . uniqid() . '@bar.baz',
             'password' => 'foobarbaz'
@@ -31,9 +29,7 @@ class PostRegisterTest extends TestCase
      */
     public function testPostRegisterWithIncorrectInput()
     {
-        $response = $this->withHeaders([
-            'Accept' => 'application/json',
-        ])->post('/register', [
+        $response = $this->post('/register', [
             'name' => 'User_' . uniqid(),
             'email' => 'foo_' . uniqid() . '@bar.baz',
             'password' => 'foobar'
@@ -49,10 +45,7 @@ class PostRegisterTest extends TestCase
      */
     public function testPostRegisterWithEmptyInput()
     {
-        $response = $this->withHeaders([
-            'Accept' => 'application/json',
-        ])->post('/register');
-
+        $response = $this->post('/register');
         $this->assertResponse($response, 422);
     }
 }

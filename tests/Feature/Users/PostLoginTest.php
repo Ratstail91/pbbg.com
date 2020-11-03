@@ -19,9 +19,7 @@ class PostLoginTest extends TestCase
             'password' => Hash::make($password = 'password'),
         ]);
 
-        $response = $this->withHeaders([
-            'Accept' => 'application/json',
-        ])->post('/login', [
+        $response = $this->post('/login', [
             'email' => $user->email,
             'password' => $password,
         ]);

@@ -13,10 +13,7 @@ class GetGamesTest extends TestCase
      */
     public function testGetGames()
     {
-        $response = $this->withHeaders([
-            'Accept' => 'application/json'
-        ])->get('/games');
-
+        $response = $this->get('/games');
         $this->assertResponse($response, 200);
     }
 }

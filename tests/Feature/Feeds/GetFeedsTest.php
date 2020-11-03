@@ -14,7 +14,7 @@ class GetFeedsTest extends TestCase
     public function testGetFeeds()
     {
         $this->withoutExceptionHandling();
-        $response = $this->withHeaders(['Accept' => 'application/json'])->get('/feeds');
+        $response = $this->get('/feeds');
         $this->assertResponse($response, 200);
     }
 }

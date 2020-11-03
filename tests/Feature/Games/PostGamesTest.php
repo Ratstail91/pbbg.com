@@ -19,11 +19,8 @@ class PostGamesTest extends TestCase
      */
     public function testPostGamesWithUnauthenticatedUser()
     {
-        $post_response = $this->withHeaders([
-            'Accept' => 'application/json'
-        ])->post('/games');
-
-        $this->assertNotEquals(403, $post_response->getStatusCode());
+        $response = $this->post('/games');
+        $this->assertNotEquals(403, $response->getStatusCode());
     }
 
     /**
@@ -35,11 +32,8 @@ class PostGamesTest extends TestCase
     {
         Passport::actingAs(User::factory()->create());
 
-        $post_response = $this->withHeaders([
-            'Accept' => 'application/json',
-        ])->post('/games');
-
-        $this->assertNotEquals(403, $post_response->getStatusCode());
+        $response = $this->post('/games');
+        $this->assertNotEquals(403, $response->getStatusCode());
     }
 
     /**
@@ -49,9 +43,7 @@ class PostGamesTest extends TestCase
      */
     public function testPostGamesWithCorrectInput()
     {
-        $response = $this->withHeaders([
-            'Accept' => 'application/json',
-        ])->post('/games', [
+        $response = $this->post('/games', [
             'name' => $this->faker->name,
             'url' => $this->faker->unique()->url,
             'short_description' => $this->faker->text($maxNbChars = 140),
@@ -74,9 +66,7 @@ class PostGamesTest extends TestCase
     {
         $input_game = Game::factory()->create();
 
-        $response = $this->withHeaders([
-            'Accept' => 'application/json',
-        ])->post('/games', [
+        $response = $this->post('/games', [
             'name' => 'some ! bad @ characters # to $ test %',
             'url' => 'not_a_url',
             'short_description' => $input_game->long_description,
@@ -97,10 +87,7 @@ class PostGamesTest extends TestCase
      */
     public function testPostGamesWithEmptyInput()
     {
-        $response = $this->withHeaders([
-            'Accept' => 'application/json',
-        ])->post('/games');
-
+        $response = $this->post('/games');
         $this->assertResponse($response, 422);
     }
 }

@@ -21,6 +21,15 @@ abstract class TestCase extends BaseTestCase
     public $seed = true;
 
     /**
+     * The default headers sent when making requests.
+     *
+     * @var array<string, string>
+     */
+    protected $defaultHeaders = [
+        'Accept' => 'application/json',
+    ];
+
+    /**
      * Setup the test environment.
      *
      * @return void
