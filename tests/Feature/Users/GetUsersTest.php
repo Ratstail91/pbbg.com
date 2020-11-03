@@ -13,7 +13,10 @@ class GetUsersTest extends TestCase
      */
     public function testGetUsers()
     {
-        $response = $this->withHeaders(['Accept' => 'application/json'])->get('/users');
+        $response = $this->withHeaders([
+            'Accept' => 'application/json'
+        ])->get('/users');
+
         $this->assertResponse($response, 200);
     }
 }

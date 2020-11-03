@@ -16,9 +16,11 @@ class GetAuthenticatedUserTest extends TestCase
     public function testAnAuthenticatedUserCanAccessAuthenticatedUserData()
     {
         Passport::actingAs(User::factory()->create());
+
         $response = $this->withHeaders([
             'Accept' => 'application/json',
         ])->get('/user');
+
         $this->assertResponse($response, 200);
     }
 
@@ -33,6 +35,7 @@ class GetAuthenticatedUserTest extends TestCase
             'Accept' => 'application/json',
             'Authorization' => "Bearer InvalidToken"
         ])->get('/user');
+
         $this->assertResponse($response, 401);
     }
 

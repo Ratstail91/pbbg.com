@@ -14,7 +14,6 @@ class ApiTest extends TestCase
     public function testApiRootResponse()
     {
         $response = $this->get('/');
-
         $response->assertStatus(200);
     }
 }

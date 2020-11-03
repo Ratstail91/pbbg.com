@@ -17,7 +17,6 @@ class AuthorizationTest extends TestCase
     public function testUserHasRole()
     {
         $user = User::factory()->create();
-
         $role = Role::create(['name' => 'test_role']);
 
         $user->assignRole($role);

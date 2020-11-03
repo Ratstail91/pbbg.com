@@ -18,12 +18,14 @@ class PostLoginTest extends TestCase
         $user = User::factory()->create([
             'password' => Hash::make($password = 'password'),
         ]);
+
         $response = $this->withHeaders([
             'Accept' => 'application/json',
         ])->post('/login', [
             'email' => $user->email,
             'password' => $password,
         ]);
+
         $this->assertResponse($response, 200);
     }
 

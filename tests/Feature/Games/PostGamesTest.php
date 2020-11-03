@@ -19,7 +19,10 @@ class PostGamesTest extends TestCase
      */
     public function testPostGamesWithUnauthenticatedUser()
     {
-        $post_response = $this->withHeaders(['Accept' => 'application/json'])->post('/games');
+        $post_response = $this->withHeaders([
+            'Accept' => 'application/json'
+        ])->post('/games');
+
         $this->assertNotEquals(403, $post_response->getStatusCode());
     }
 
@@ -31,9 +34,11 @@ class PostGamesTest extends TestCase
     public function testPostGamesWithAuthenticatedUser()
     {
         Passport::actingAs(User::factory()->create());
+
         $post_response = $this->withHeaders([
             'Accept' => 'application/json',
         ])->post('/games');
+
         $this->assertNotEquals(403, $post_response->getStatusCode());
     }
 

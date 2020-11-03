@@ -13,14 +13,14 @@ class PostRegisterTest extends TestCase
      */
     public function testPostRegisterWithCorrectInput()
     {
-        $random_uuid = uniqid();
         $response = $this->withHeaders([
             'Accept' => 'application/json',
         ])->post('/register', [
-            'name' => 'User_' . $random_uuid,
-            'email' => 'foo_' . $random_uuid . '@bar.baz',
+            'name' => 'User_' . uniqid(),
+            'email' => 'foo_' . uniqid() . '@bar.baz',
             'password' => 'foobarbaz'
         ]);
+
         $this->assertResponse($response, 200);
     }
 
@@ -31,12 +31,11 @@ class PostRegisterTest extends TestCase
      */
     public function testPostRegisterWithIncorrectInput()
     {
-        $random_uuid = uniqid();
         $response = $this->withHeaders([
             'Accept' => 'application/json',
         ])->post('/register', [
-            'name' => 'User_' . $random_uuid,
-            'email' => 'foo_' . $random_uuid . '@bar.baz',
+            'name' => 'User_' . uniqid(),
+            'email' => 'foo_' . uniqid() . '@bar.baz',
             'password' => 'foobar'
         ]);
 

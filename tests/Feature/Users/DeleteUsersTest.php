@@ -27,7 +27,9 @@ class DeleteUsersTest extends TestCase
 
         Passport::actingAs($user);
 
-        $response = $this->withHeaders(['Accept' => 'application/json'])->delete('/users');
+        $response = $this->withHeaders([
+            'Accept' => 'application/json'
+        ])->delete('/users');
 
         $this->assertResponse($response, 200);
 
@@ -47,7 +49,9 @@ class DeleteUsersTest extends TestCase
         $count = User::count();
         $this->assertGreaterThan(0, $count);
 
-        $response = $this->withHeaders(['Accept' => 'application/json'])->delete('/users');
+        $response = $this->withHeaders([
+            'Accept' => 'application/json'
+        ])->delete('/users');
 
         $this->assertResponse($response, 403);
     }
@@ -60,10 +64,11 @@ class DeleteUsersTest extends TestCase
     public function testDeleteUsersWithoutAuthentication()
     {
         $count = User::count();
-
         $this->assertGreaterThan(0, $count);
 
-        $response = $this->withHeaders(['Accept' => 'application/json'])->delete('/users');
+        $response = $this->withHeaders([
+            'Accept' => 'application/json'
+        ])->delete('/users');
 
         $this->assertResponse($response, 401);
     }
