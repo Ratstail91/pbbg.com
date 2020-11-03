@@ -70,7 +70,7 @@ class UserController extends Controller
     public function destroyAll()
     {
         # todo: this should be reserved for admins
-        User::truncate();
+        User::query()->delete();
         return UserResource::collection(User::paginate());
     }
 }
