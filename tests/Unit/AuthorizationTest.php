@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
@@ -11,38 +10,13 @@ use Tests\TestCase;
 class AuthorizationTest extends TestCase
 {
     /**
-     * Setup the test environment.
-     * Deletes existing roles and permissions before running a test.
+     * Tests that the user has a role called "test_role".
      *
      * @return void
      */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        DB::statement('TRUNCATE TABLE role_has_permissions;');
-        DB::statement('TRUNCATE TABLE model_has_roles;');
-        DB::statement('TRUNCATE TABLE model_has_permissions;');
-
-        // turn off FK constraint to allow truncate
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
-        Role::truncate();
-        Permission::truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
-    }
-
-    /**
-     * Tests that the user has a role called "test_role".
-     *
-     */
     public function testUserHasRole()
     {
-        $user = User::create([
-            'name' => 'test_'.uniqid(),
-            'email' => 'test_'.uniqid().'@test.test',
-            'password' => bcrypt('password'),
-        ]);
-
+        $user = User::factory()->create();
         $role = Role::create(['name' => 'test_role']);
 
         $user->assignRole($role);

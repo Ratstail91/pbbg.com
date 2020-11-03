@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Users;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\User;
+use Laravel\Passport\Passport;
 use Tests\TestCase;
 
 class GetAuthenticatedUserTest extends TestCase
@@ -15,11 +15,9 @@ class GetAuthenticatedUserTest extends TestCase
      */
     public function testAnAuthenticatedUserCanAccessAuthenticatedUserData()
     {
-        $token = $this->registerUser();
-        $response = $this->withHeaders([
-            'Accept' => 'application/json',
-            'Authorization' => "Bearer $token"
-        ])->get('/user');
+        Passport::actingAs(User::factory()->create());
+
+        $response = $this->get('/user');
         $this->assertResponse($response, 200);
     }
 
@@ -31,9 +29,9 @@ class GetAuthenticatedUserTest extends TestCase
     public function testAnUnauthenticatedUserCanNotAccessAuthenticatedUserData()
     {
         $response = $this->withHeaders([
-            'Accept' => 'application/json',
-            'Authorization' => "Bearer InvalidToken"
+            'Authorization' => "Bearer InvalidToken",
         ])->get('/user');
+
         $this->assertResponse($response, 401);
     }
 

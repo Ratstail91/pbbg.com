@@ -47,18 +47,15 @@ class FeedController extends Controller
 
         usort($feed_items, array(FeedController::class, 'sortByTimestamp'));
 
-        $feed_items = array_slice($feed_items, 0,6);
+        $feed_items = array_slice($feed_items, 0, 6);
 
         return [
             'data' => $feed_items
         ];
-
     }
 
-    private static function sortByTimestamp($a,$b) {
+    private static function sortByTimestamp($a, $b)
+    {
         return $b['timestamp'] - $a['timestamp'];
     }
-
-
-
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Users;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class PostLoginTest extends TestCase
@@ -15,14 +15,15 @@ class PostLoginTest extends TestCase
      */
     public function testPostLogInWithValidCredentials()
     {
-        $uuid = uniqid();
-        $this->registerUser($uuid);
-        $response = $this->withHeaders([
-            'Accept' => 'application/json',
-        ])->post('/login', [
-            'email' => 'foo_' . $uuid . '@bar.baz',
-            'password' => 'foobarbaz',
+        $user = User::factory()->create([
+            'password' => Hash::make($password = 'password'),
         ]);
+
+        $response = $this->post('/login', [
+            'email' => $user->email,
+            'password' => $password,
+        ]);
+
         $this->assertResponse($response, 200);
     }
 
@@ -33,12 +34,10 @@ class PostLoginTest extends TestCase
      */
     public function testPostLogInWithInvalidCredentials()
     {
-        $uuid = uniqid();
-        $this->registerUser($uuid);
         $response = $this->withHeaders([
             'Accept' => 'application/json',
         ])->post('/login', [
-            'email' => 'foo_' . $uuid . '@bar.baz',
+            'email' => 'foo_' . uniqid() . '@bar.baz',
             'password' => 'incorrectpassword'
         ]);
         $this->assertResponse($response, 401);

@@ -1,9 +1,7 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Users;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class PostRegisterTest extends TestCase
@@ -15,14 +13,12 @@ class PostRegisterTest extends TestCase
      */
     public function testPostRegisterWithCorrectInput()
     {
-        $random_uuid = uniqid();
-        $response = $this->withHeaders([
-            'Accept' => 'application/json',
-        ])->post('/register', [
-            'name' => 'User_' . $random_uuid,
-            'email' => 'foo_' . $random_uuid . '@bar.baz',
+        $response = $this->post('/register', [
+            'name' => 'User_' . uniqid(),
+            'email' => 'foo_' . uniqid() . '@bar.baz',
             'password' => 'foobarbaz'
         ]);
+
         $this->assertResponse($response, 200);
     }
 
@@ -33,12 +29,9 @@ class PostRegisterTest extends TestCase
      */
     public function testPostRegisterWithIncorrectInput()
     {
-        $random_uuid = uniqid();
-        $response = $this->withHeaders([
-            'Accept' => 'application/json',
-        ])->post('/register', [
-            'name' => 'User_' . $random_uuid,
-            'email' => 'foo_' . $random_uuid . '@bar.baz',
+        $response = $this->post('/register', [
+            'name' => 'User_' . uniqid(),
+            'email' => 'foo_' . uniqid() . '@bar.baz',
             'password' => 'foobar'
         ]);
 
@@ -52,10 +45,7 @@ class PostRegisterTest extends TestCase
      */
     public function testPostRegisterWithEmptyInput()
     {
-        $response = $this->withHeaders([
-            'Accept' => 'application/json',
-        ])->post('/register');
-
+        $response = $this->post('/register');
         $this->assertResponse($response, 422);
     }
 }

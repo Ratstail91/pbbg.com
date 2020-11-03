@@ -1,9 +1,7 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Games;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class GetGamesTest extends TestCase
@@ -15,7 +13,7 @@ class GetGamesTest extends TestCase
      */
     public function testGetGames()
     {
-        $response = $this->withHeaders(['Accept' => 'application/json'])->get('/games');
+        $response = $this->get('/games');
         $this->assertResponse($response, 200);
     }
 }
