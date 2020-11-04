@@ -10,9 +10,12 @@ jobs:
           cp .env.ci .env
           composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
           php artisan key:generate
-      - name: Run PHPlint
+      - name: Install Passport
+        run: |
+          php artisan passport:keys
+      - name: Run PHPLint
         run: composer lint
-      - name: Run PHPunit
+      - name: Run PHPUnit
         run: |
           php artisan migrate
-#          composer test
+          composer test -- --stop-on-error
