@@ -3,19 +3,6 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    services:
-      mysql-service:
-        image: mysql:5.7
-        env:
-          MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          MYSQL_DATABASE: pbbgci
-        ports:
-          - 33306:3306
-        options: >-
-          --health-cmd="mysqladmin ping"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
     steps:
       - uses: actions/checkout@v2
       - name: App Setup
@@ -26,12 +13,6 @@ jobs:
       - name: Run PHPlint
         run: composer lint
       - name: Run PHPunit
-        env:
-          DB_CONNECTION: mysql
-          DB_DATABASE: pbbgci
-          DB_PORT: 33306
-          DB_USER: root
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
           php artisan migrate
 #          composer test
