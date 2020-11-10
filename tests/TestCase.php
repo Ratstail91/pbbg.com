@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\DB;
@@ -33,6 +34,7 @@ abstract class TestCase extends BaseTestCase
      * Setup the test environment.
      *
      * @return void
+     * @throws Exception
      */
     protected function setUp(): void
     {
@@ -41,7 +43,7 @@ abstract class TestCase extends BaseTestCase
         if (! file_exists(storage_path('oauth-private.key'))
             || ! file_exists(storage_path('oauth-public.key'))
         ) {
-            exit("Error: Install Laravel Passport\n");
+            throw new Exception('Install Laravel Passport');
         }
 
         $this->createTestClient();
