@@ -9,7 +9,7 @@
     ],
     "license": "GNU GPL v3.0",
     "require": {
-        "php": "^7.3",
+        "php": "^7.3|^8.0",
         "algolia/algoliasearch-client-php": "^2.7",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
