@@ -21,4 +21,16 @@ class Game extends Model
         'url',
         'short_description',
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'integer',
+        'approved' => 'integer',
+        'verified' => 'integer',
+        'promoted' => 'integer'
+    ];
 }
