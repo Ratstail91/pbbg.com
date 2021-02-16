@@ -40,8 +40,8 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        if (! file_exists(storage_path('oauth-private.key'))
-            || ! file_exists(storage_path('oauth-public.key'))
+        if (!file_exists(storage_path('oauth-private.key'))
+            || !file_exists(storage_path('oauth-public.key'))
         ) {
             throw new Exception('Install Laravel Passport');
         }
@@ -66,7 +66,7 @@ abstract class TestCase extends BaseTestCase
         $client->save();
 
         DB::table('oauth_personal_access_clients')->insert([
-            'client_id'  => $client->id,
+            'client_id' => $client->id,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -89,7 +89,14 @@ abstract class TestCase extends BaseTestCase
         if ($result->isValid()) {
             $result_is_valid = 1;
         } else {
-            dd([$result->getFirstError()->data(), $result->getFirstError()->keyword(), $result->getFirstError()->keywordArgs()]);
+            dd([
+                "raw_errors" => $result->getErrors(),
+                "first_error" => [
+                    "data" => $result->getFirstError()->data(),
+                    "keyword" => $result->getFirstError()->keyword(),
+                    "args" => $result->getFirstError()->keywordArgs(),
+                ]
+            ]);
         }
 
         $this->assertEquals(1, $result_is_valid);

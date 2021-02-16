@@ -11,9 +11,16 @@ class GetGamesTest extends TestCase
      *
      * @return void
      */
-    public function testGetGames()
+    public function testGetGamesReturnsCorrectHttpResponse()
     {
         $response = $this->get('/games');
         $this->assertResponse($response, 200);
+    }
+
+    public function testGetGamesReturnsCorrectData()
+    {
+        $response = $this->get('/games');
+        $response_content = json_decode($response->getContent());
+        $this->assertSchema($response_content, 'games.json');
     }
 }
