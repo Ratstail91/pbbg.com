@@ -1,6 +1,13 @@
 {
+    "name": "pbbg.com",
+    "version": "0.0.1",
+    "description": "Persistent Browser-Based Games",
+    "productName": "pbbg.com",
+    "author": "@FoohonPie & Friends",
     "private": true,
     "scripts": {
+        "start": "./vendor/bin/sail up",
+        "install-php-deps": "./scripts/php-deps.sh",
         "dev": "npm run development",
         "development": "mix",
         "watch": "mix watch",
@@ -14,5 +21,11 @@
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14"
-    }
+    },
+    "engines": {
+        "node": ">= 14.15.4",
+        "npm": ">= 6.14.10",
+        "yarn": "use NPM instead of yarn because Laravel expects it"
+    },
+    "license": "GNU GPL v3.0"
 }
